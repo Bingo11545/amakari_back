@@ -1,0 +1,774 @@
+{
+  "users": [
+    {
+      "id": "user_superadmin_01",
+      "createdAt": "2026-09-28T13:35:30.962Z",
+      "updatedAt": "2026-09-28T13:35:30.962Z",
+      "name": "Amakari Super Admin",
+      "email": "superadmin@amakari.com",
+      "password": "$2b$10$2nUGXOr517xB3LNJn9KRqeT9y7jnregz8/lEMThF3O85u/qhgoN7a",
+      "role": "SUPER_ADMIN",
+      "isActive": true,
+      "permissions": [
+        "USER_VIEW",
+        "USER_CREATE",
+        "USER_UPDATE",
+        "USER_DELETE",
+        "THERAPIST_VIEW",
+        "THERAPIST_UPDATE",
+        "THERAPIST_APPROVE",
+        "APPOINTMENT_VIEW",
+        "APPOINTMENT_MANAGE",
+        "SESSION_VIEW",
+        "SESSION_MANAGE",
+        "REPORT_VIEW",
+        "ANALYTICS_VIEW",
+        "PAYMENT_VIEW",
+        "PAYMENT_MANAGE",
+        "AUDIT_LOG_VIEW"
+      ]
+    },
+    {
+      "id": "user_subadmin_01",
+      "createdAt": "2026-09-28T13:35:30.997Z",
+      "updatedAt": "2026-09-28T13:35:30.997Z",
+      "name": "Clinical Operations Sub Admin",
+      "email": "subadmin@amakari.com",
+      "password": "$2b$10$2nUGXOr517xB3LNJn9KRqeT9y7jnregz8/lEMThF3O85u/qhgoN7a",
+      "role": "SUB_ADMIN",
+      "isActive": true,
+      "permissions": [
+        "USER_VIEW",
+        "USER_UPDATE",
+        "THERAPIST_VIEW",
+        "THERAPIST_APPROVE",
+        "APPOINTMENT_VIEW",
+        "SESSION_VIEW",
+        "ANALYTICS_VIEW",
+        "REPORT_VIEW"
+      ]
+    },
+    {
+      "id": "user_therapist_01",
+      "createdAt": "2026-09-28T13:35:31.006Z",
+      "updatedAt": "2026-09-28T13:35:31.006Z",
+      "name": "Dr. Amara Reyes, LMFT",
+      "email": "therapist@amakari.com",
+      "password": "$2b$10$gLEE0NJLaxxDVis3LIiwdub.rt3Yv.PK4pQAb2ZLqzqZ2bIQCFy/S",
+      "role": "THERAPIST",
+      "isActive": true,
+      "permissions": [],
+      "therapistId": "therapist_01",
+      "therapistStatus": "verified"
+    },
+    {
+      "id": "user_therapist_02",
+      "createdAt": "2026-09-28T13:35:31.012Z",
+      "updatedAt": "2026-09-28T13:35:31.012Z",
+      "name": "Dr. Liam Brooks, PsyD",
+      "email": "liam.brooks@amakari.com",
+      "password": "$2b$10$gLEE0NJLaxxDVis3LIiwdub.rt3Yv.PK4pQAb2ZLqzqZ2bIQCFy/S",
+      "role": "THERAPIST",
+      "isActive": true,
+      "permissions": []
+    },
+    {
+      "id": "user_therapist_03",
+      "createdAt": "2026-09-28T13:35:31.019Z",
+      "updatedAt": "2026-09-28T13:35:31.019Z",
+      "name": "Maya Chen, LCSW",
+      "email": "maya.chen@amakari.com",
+      "password": "$2b$10$gLEE0NJLaxxDVis3LIiwdub.rt3Yv.PK4pQAb2ZLqzqZ2bIQCFy/S",
+      "role": "THERAPIST",
+      "isActive": true,
+      "permissions": []
+    },
+    {
+      "id": "user_client_01",
+      "createdAt": "2026-09-28T13:35:31.026Z",
+      "updatedAt": "2026-09-28T13:35:31.026Z",
+      "name": "Sarah Jenkins",
+      "email": "client@amakari.com",
+      "password": "$2b$10$4HZPiCjbYRBGou6JzTareeKa0bCDSch2gFGD7E/OusORfM20sOxi2",
+      "role": "USER",
+      "isActive": true,
+      "permissions": [],
+      "profile": {
+        "phone": "+1 (555) 234-5678",
+        "timezone": "America/New_York",
+        "focusAreas": [
+          "Anxiety",
+          "Stress"
+        ]
+      }
+    },
+    {
+      "id": "user_client_02",
+      "createdAt": "2026-09-28T13:35:31.035Z",
+      "updatedAt": "2026-09-28T13:35:31.035Z",
+      "name": "Michael Chen",
+      "email": "client2@amakari.com",
+      "password": "$2b$10$4HZPiCjbYRBGou6JzTareeKa0bCDSch2gFGD7E/OusORfM20sOxi2",
+      "role": "USER",
+      "isActive": true,
+      "permissions": [],
+      "profile": {
+        "phone": "+1 (555) 345-6789",
+        "timezone": "America/Los_Angeles",
+        "focusAreas": [
+          "Relationships",
+          "Burnout"
+        ]
+      }
+    },
+    {
+      "id": "id_1790602569494_zc1wol4",
+      "createdAt": "2026-09-28T13:36:09.494Z",
+      "updatedAt": "2026-09-28T14:35:33.694Z",
+      "name": "Restricted Sub Admin",
+      "email": "test_subadmin@amakari.com",
+      "password": "$2b$10$UQiwlxq2UdNjsz2im4DIQ.GLYv8wPGd3sgJw/1FDARuTffiIxnxpC",
+      "role": "SUB_ADMIN",
+      "isActive": false,
+      "permissions": [
+        "USER_VIEW"
+      ]
+    },
+    {
+      "id": "id_1790602569942_cgi7u9u",
+      "createdAt": "2026-09-28T13:36:09.942Z",
+      "updatedAt": "2026-09-28T13:36:09.942Z",
+      "name": "John Doe",
+      "email": "test_client_1790602569755@example.com",
+      "password": "$2b$10$Gb1voX1hGur0ZZQibxfPBuF726jZ4j6/YobwcRhACr6bppSzE2RMG",
+      "role": "USER",
+      "isActive": true,
+      "permissions": []
+    }
+  ],
+  "therapists": [
+    {
+      "id": "therapist_01",
+      "createdAt": "2026-09-28T13:35:31.009Z",
+      "updatedAt": "2026-09-28T13:36:10.265Z",
+      "userId": "user_therapist_01",
+      "name": "Dr. Amara Reyes, LMFT",
+      "email": "therapist@amakari.com",
+      "initials": "AR",
+      "license": "LMFT-98421",
+      "title": "Licensed Marriage & Family Therapist",
+      "specialty": "Anxiety & Trauma Specialist",
+      "focusAreas": [
+        "Anxiety",
+        "Trauma",
+        "Stress",
+        "Relationships"
+      ],
+      "experience": "9 years",
+      "bio": "Dedicated to helping individuals navigate anxiety, stress, and relational dynamics with evidence-based cognitive and somatic approaches.",
+      "hourlyRate": 140,
+      "status": "verified",
+      "rating": 4.9,
+      "clientsCount": 18,
+      "availability": [
+        {
+          "day": "Monday",
+          "slots": [
+            "09:00 - 10:00",
+            "10:30 - 11:30"
+          ]
+        },
+        {
+          "day": "Wednesday",
+          "slots": [
+            "14:00 - 15:00"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "therapist_02",
+      "createdAt": "2026-09-28T13:35:31.015Z",
+      "updatedAt": "2026-09-28T13:35:31.015Z",
+      "userId": "user_therapist_02",
+      "name": "Dr. Liam Brooks, PsyD",
+      "email": "liam.brooks@amakari.com",
+      "initials": "LB",
+      "license": "PSY-55209",
+      "title": "Clinical Psychologist",
+      "specialty": "Couples & Family Dynamics",
+      "focusAreas": [
+        "Couples",
+        "Relationships",
+        "Burnout"
+      ],
+      "experience": "12 years",
+      "bio": "Specializing in relationship strengthening, executive burnout, and modern conflict resolution therapies.",
+      "hourlyRate": 160,
+      "status": "verified",
+      "rating": 4.8,
+      "clientsCount": 22,
+      "availability": [
+        {
+          "day": "Tuesday",
+          "slots": [
+            "10:00 - 11:00",
+            "11:30 - 12:30",
+            "14:00 - 15:00"
+          ]
+        },
+        {
+          "day": "Wednesday",
+          "slots": [
+            "09:00 - 10:00",
+            "13:00 - 14:00",
+            "15:30 - 16:30"
+          ]
+        },
+        {
+          "day": "Thursday",
+          "slots": [
+            "11:00 - 12:00",
+            "14:00 - 15:00"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "therapist_03",
+      "createdAt": "2026-09-28T13:35:31.023Z",
+      "updatedAt": "2026-09-28T13:36:09.687Z",
+      "userId": "user_therapist_03",
+      "name": "Maya Chen, LCSW",
+      "email": "maya.chen@amakari.com",
+      "initials": "MC",
+      "license": "LCSW-33104",
+      "title": "Licensed Clinical Social Worker",
+      "specialty": "Grief & Major Life Transitions",
+      "focusAreas": [
+        "Grief",
+        "Depression",
+        "Trauma"
+      ],
+      "experience": "6 years",
+      "bio": "Compassionate psychotherapy honoring client lived experience and gentle recovery pathways.",
+      "hourlyRate": 120,
+      "status": "verified",
+      "rating": 0,
+      "clientsCount": 0,
+      "availability": [
+        {
+          "day": "Monday",
+          "slots": [
+            "11:00 - 12:00",
+            "15:00 - 16:00"
+          ]
+        },
+        {
+          "day": "Friday",
+          "slots": [
+            "09:00 - 10:00",
+            "14:00 - 15:00"
+          ]
+        }
+      ]
+    }
+  ],
+  "subAdmins": [
+    {
+      "id": "subadmin_record_01",
+      "createdAt": "2026-09-28T13:35:31.002Z",
+      "updatedAt": "2026-09-28T13:35:31.002Z",
+      "userId": "user_subadmin_01",
+      "name": "Clinical Operations Sub Admin",
+      "email": "subadmin@amakari.com",
+      "assignedBy": "user_superadmin_01",
+      "permissions": [
+        "USER_VIEW",
+        "USER_UPDATE",
+        "THERAPIST_VIEW",
+        "THERAPIST_APPROVE",
+        "APPOINTMENT_VIEW",
+        "SESSION_VIEW",
+        "ANALYTICS_VIEW",
+        "REPORT_VIEW"
+      ],
+      "status": "ACTIVE"
+    },
+    {
+      "id": "id_1790602569498_fsvamm2",
+      "createdAt": "2026-09-28T13:36:09.498Z",
+      "updatedAt": "2026-09-28T14:35:33.649Z",
+      "userId": "id_1790602569494_zc1wol4",
+      "name": "Restricted Sub Admin",
+      "email": "test_subadmin@amakari.com",
+      "assignedBy": "user_superadmin_01",
+      "permissions": [
+        "USER_VIEW"
+      ],
+      "status": "DISABLED"
+    }
+  ],
+  "appointments": [
+    {
+      "id": "appt_01",
+      "createdAt": "2026-09-28T13:35:31.041Z",
+      "updatedAt": "2026-09-28T13:35:31.041Z",
+      "clientId": "user_client_01",
+      "clientName": "Sarah Jenkins",
+      "clientEmail": "client@amakari.com",
+      "therapistId": "therapist_01",
+      "therapistUserId": "user_therapist_01",
+      "therapistName": "Dr. Amara Reyes, LMFT",
+      "date": "2026-09-28",
+      "startTime": "15:00",
+      "endTime": "15:50",
+      "type": "Individual session",
+      "fee": 140,
+      "status": "CONFIRMED",
+      "sessionId": "session_01",
+      "notes": "Initial evaluation and anxiety reduction strategies"
+    },
+    {
+      "id": "appt_02_completed",
+      "createdAt": "2026-09-28T13:35:31.053Z",
+      "updatedAt": "2026-09-28T13:35:31.053Z",
+      "clientId": "user_client_01",
+      "clientName": "Sarah Jenkins",
+      "clientEmail": "client@amakari.com",
+      "therapistId": "therapist_01",
+      "therapistUserId": "user_therapist_01",
+      "therapistName": "Dr. Amara Reyes, LMFT",
+      "date": "2026-09-18",
+      "startTime": "14:00",
+      "endTime": "14:50",
+      "type": "Individual session",
+      "fee": 140,
+      "status": "COMPLETED",
+      "sessionId": "session_02_completed",
+      "notes": "Follow-up on mindfulness exercises"
+    },
+    {
+      "id": "id_1790602569976_f8o1u6u",
+      "createdAt": "2026-09-28T13:36:09.976Z",
+      "updatedAt": "2026-09-28T13:36:10.557Z",
+      "clientId": "id_1790602569942_cgi7u9u",
+      "clientName": "John Doe",
+      "clientEmail": "test_client_1790602569755@example.com",
+      "therapistId": "therapist_01",
+      "therapistUserId": "user_therapist_01",
+      "therapistName": "Dr. Amara Reyes, LMFT",
+      "date": "2026-10-15",
+      "startTime": "10:00",
+      "endTime": "10:50",
+      "type": "Individual session",
+      "fee": 140,
+      "status": "COMPLETED",
+      "sessionId": "id_1790602569971_8rchbsy",
+      "notes": "Anxiety evaluation"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "session_01",
+      "createdAt": "2026-09-28T13:35:31.038Z",
+      "updatedAt": "2026-09-28T14:26:12.187Z",
+      "appointmentId": "appt_01",
+      "clientId": "user_client_01",
+      "therapistId": "therapist_01",
+      "therapistUserId": "user_therapist_01",
+      "roomId": "room_amakari_session_live_01",
+      "status": "ACTIVE",
+      "startedAt": "2026-09-28T14:26:12.187Z",
+      "endedAt": null
+    },
+    {
+      "id": "id_1790602569971_8rchbsy",
+      "createdAt": "2026-09-28T13:36:09.971Z",
+      "updatedAt": "2026-09-28T13:36:10.554Z",
+      "appointmentId": "id_1790602569976_f8o1u6u",
+      "clientId": "id_1790602569942_cgi7u9u",
+      "therapistId": "therapist_01",
+      "therapistUserId": "user_therapist_01",
+      "roomId": "amakari_1790602569970_hsj0ky",
+      "status": "ENDED",
+      "startedAt": "2026-09-28T13:36:10.284Z",
+      "endedAt": "2026-09-28T13:36:10.554Z"
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "audit_01",
+      "createdAt": "2026-09-28T13:35:31.063Z",
+      "updatedAt": "2026-09-28T13:35:31.063Z",
+      "actorId": "user_superadmin_01",
+      "actorEmail": "superadmin@amakari.com",
+      "actorRole": "SUPER_ADMIN",
+      "action": "SYSTEM_INITIALIZATION",
+      "resource": "DATABASE",
+      "details": "System seeded with default admin, therapist, client accounts and roles.",
+      "timestamp": "2026-09-28T13:35:31.063Z"
+    },
+    {
+      "id": "id_1790602569249_xz7tgcq",
+      "createdAt": "2026-09-28T13:36:09.249Z",
+      "updatedAt": "2026-09-28T13:36:09.249Z",
+      "actorId": "user_superadmin_01",
+      "actorEmail": "superadmin@amakari.com",
+      "actorRole": "SUPER_ADMIN",
+      "action": "AUTH_LOGIN",
+      "resource": "USER",
+      "details": "Successful login: Amakari Super Admin (SUPER_ADMIN)",
+      "ip": "::1",
+      "timestamp": "2026-09-28T13:36:09.249Z"
+    },
+    {
+      "id": "id_1790602569501_6eor4s0",
+      "createdAt": "2026-09-28T13:36:09.501Z",
+      "updatedAt": "2026-09-28T13:36:09.501Z",
+      "actorId": "user_superadmin_01",
+      "actorEmail": "superadmin@amakari.com",
+      "actorRole": "SUPER_ADMIN",
+      "action": "SUB_ADMIN_CREATED",
+      "resource": "SUB_ADMIN",
+      "details": "Super Admin created Sub Admin Restricted Sub Admin with permissions: USER_VIEW, THERAPIST_VIEW, THERAPIST_APPROVE",
+      "ip": "::1",
+      "timestamp": "2026-09-28T13:36:09.501Z"
+    },
+    {
+      "id": "id_1790602569668_mkekb9o",
+      "createdAt": "2026-09-28T13:36:09.668Z",
+      "updatedAt": "2026-09-28T13:36:09.668Z",
+      "actorId": "id_1790602569494_zc1wol4",
+      "actorEmail": "test_subadmin@amakari.com",
+      "actorRole": "SUB_ADMIN",
+      "action": "AUTH_LOGIN",
+      "resource": "USER",
+      "details": "Successful login: Restricted Sub Admin (SUB_ADMIN)",
+      "ip": "::1",
+      "timestamp": "2026-09-28T13:36:09.668Z"
+    },
+    {
+      "id": "id_1790602569692_oat25mr",
+      "createdAt": "2026-09-28T13:36:09.692Z",
+      "updatedAt": "2026-09-28T13:36:09.692Z",
+      "actorId": "id_1790602569494_zc1wol4",
+      "actorEmail": "test_subadmin@amakari.com",
+      "actorRole": "SUB_ADMIN",
+      "action": "THERAPIST_APPROVED",
+      "resource": "THERAPIST",
+      "details": "Therapist Maya Chen, LCSW (LCSW-33104) approved by Restricted Sub Admin",
+      "ip": "::1",
+      "timestamp": "2026-09-28T13:36:09.692Z"
+    },
+    {
+      "id": "id_1790602569728_0w0cebk",
+      "createdAt": "2026-09-28T13:36:09.728Z",
+      "updatedAt": "2026-09-28T13:36:09.728Z",
+      "actorId": "user_superadmin_01",
+      "actorEmail": "superadmin@amakari.com",
+      "actorRole": "SUPER_ADMIN",
+      "action": "SUB_ADMIN_UPDATED",
+      "resource": "SUB_ADMIN",
+      "details": "Super Admin updated Sub Admin Restricted Sub Admin. Permissions: USER_VIEW",
+      "ip": "::1",
+      "timestamp": "2026-09-28T13:36:09.728Z"
+    },
+    {
+      "id": "id_1790602569746_dvy4ced",
+      "createdAt": "2026-09-28T13:36:09.746Z",
+      "updatedAt": "2026-09-28T13:36:09.746Z",
+      "actorId": "user_superadmin_01",
+      "actorEmail": "superadmin@amakari.com",
+      "actorRole": "SUPER_ADMIN",
+      "action": "SUB_ADMIN_DISABLED",
+      "resource": "SUB_ADMIN",
+      "details": "Sub Admin Restricted Sub Admin set to DISABLED",
+      "ip": "::1",
+      "timestamp": "2026-09-28T13:36:09.746Z"
+    },
+    {
+      "id": "id_1790602569949_mwps8am",
+      "createdAt": "2026-09-28T13:36:09.949Z",
+      "updatedAt": "2026-09-28T13:36:09.949Z",
+      "actorId": "id_1790602569942_cgi7u9u",
+      "actorEmail": "test_client_1790602569755@example.com",
+      "actorRole": "USER",
+      "action": "USER_REGISTERED",
+      "resource": "USER",
+      "details": "New client registered: John Doe (test_client_1790602569755@example.com)",
+      "ip": "::1",
+      "timestamp": "2026-09-28T13:36:09.949Z"
+    },
+    {
+      "id": "id_1790602569982_02ftmos",
+      "createdAt": "2026-09-28T13:36:09.982Z",
+      "updatedAt": "2026-09-28T13:36:09.982Z",
+      "actorId": "id_1790602569942_cgi7u9u",
+      "actorEmail": "test_client_1790602569755@example.com",
+      "actorRole": "USER",
+      "action": "APPOINTMENT_BOOKED",
+      "resource": "APPOINTMENT",
+      "details": "Client John Doe booked appointment with Dr. Amara Reyes, LMFT for 2026-10-15 at 10:00",
+      "ip": "::1",
+      "timestamp": "2026-09-28T13:36:09.982Z"
+    },
+    {
+      "id": "id_1790602570251_qu65n6z",
+      "createdAt": "2026-09-28T13:36:10.251Z",
+      "updatedAt": "2026-09-28T13:36:10.251Z",
+      "actorId": "user_therapist_01",
+      "actorEmail": "therapist@amakari.com",
+      "actorRole": "THERAPIST",
+      "action": "AUTH_LOGIN",
+      "resource": "USER",
+      "details": "Successful login: Dr. Amara Reyes, LMFT (THERAPIST)",
+      "ip": "::1",
+      "timestamp": "2026-09-28T13:36:10.251Z"
+    },
+    {
+      "id": "id_1790602570269_3xe87kv",
+      "createdAt": "2026-09-28T13:36:10.268Z",
+      "updatedAt": "2026-09-28T13:36:10.268Z",
+      "actorId": "user_therapist_01",
+      "actorEmail": "therapist@amakari.com",
+      "actorRole": "THERAPIST",
+      "action": "THERAPIST_AVAILABILITY_UPDATED",
+      "resource": "THERAPIST",
+      "details": "Availability updated by Dr. Amara Reyes, LMFT",
+      "ip": "::1",
+      "timestamp": "2026-09-28T13:36:10.268Z"
+    },
+    {
+      "id": "id_1790602570293_2ka91dk",
+      "createdAt": "2026-09-28T13:36:10.293Z",
+      "updatedAt": "2026-09-28T13:36:10.293Z",
+      "actorId": "id_1790602569942_cgi7u9u",
+      "actorEmail": "test_client_1790602569755@example.com",
+      "actorRole": "USER",
+      "action": "SESSION_JOINED",
+      "resource": "SESSION",
+      "details": "Participant John Doe joined session id_1790602569971_8rchbsy in room amakari_1790602569970_hsj0ky",
+      "ip": "::1",
+      "timestamp": "2026-09-28T13:36:10.293Z"
+    },
+    {
+      "id": "id_1790602570309_ec3ivnr",
+      "createdAt": "2026-09-28T13:36:10.309Z",
+      "updatedAt": "2026-09-28T13:36:10.309Z",
+      "actorId": "user_therapist_01",
+      "actorEmail": "therapist@amakari.com",
+      "actorRole": "THERAPIST",
+      "action": "SESSION_JOINED",
+      "resource": "SESSION",
+      "details": "Participant Dr. Amara Reyes, LMFT joined session id_1790602569971_8rchbsy in room amakari_1790602569970_hsj0ky",
+      "ip": "::1",
+      "timestamp": "2026-09-28T13:36:10.309Z"
+    },
+    {
+      "id": "id_1790602570540_amvsinq",
+      "createdAt": "2026-09-28T13:36:10.540Z",
+      "updatedAt": "2026-09-28T13:36:10.540Z",
+      "actorId": "user_client_02",
+      "actorEmail": "client2@amakari.com",
+      "actorRole": "USER",
+      "action": "AUTH_LOGIN",
+      "resource": "USER",
+      "details": "Successful login: Michael Chen (USER)",
+      "ip": "::1",
+      "timestamp": "2026-09-28T13:36:10.540Z"
+    },
+    {
+      "id": "id_1790602570548_8l01w35",
+      "createdAt": "2026-09-28T13:36:10.548Z",
+      "updatedAt": "2026-09-28T13:36:10.548Z",
+      "actorId": "user_client_02",
+      "actorEmail": "client2@amakari.com",
+      "actorRole": "USER",
+      "action": "UNAUTHORIZED_SESSION_JOIN_ATTEMPT",
+      "resource": "SESSION",
+      "details": "User Michael Chen (client2@amakari.com) attempted to join unassigned session id_1790602569971_8rchbsy",
+      "ip": "::1",
+      "timestamp": "2026-09-28T13:36:10.548Z"
+    },
+    {
+      "id": "id_1790602570560_gsakbbi",
+      "createdAt": "2026-09-28T13:36:10.560Z",
+      "updatedAt": "2026-09-28T13:36:10.560Z",
+      "actorId": "user_therapist_01",
+      "actorEmail": "therapist@amakari.com",
+      "actorRole": "THERAPIST",
+      "action": "SESSION_ENDED",
+      "resource": "SESSION",
+      "details": "Session id_1790602569971_8rchbsy ended by Dr. Amara Reyes, LMFT",
+      "ip": "::1",
+      "timestamp": "2026-09-28T13:36:10.560Z"
+    },
+    {
+      "id": "id_1790604217257_eqw8g9m",
+      "createdAt": "2026-09-28T14:03:37.257Z",
+      "updatedAt": "2026-09-28T14:03:37.257Z",
+      "actorId": "user_superadmin_01",
+      "actorEmail": "superadmin@amakari.com",
+      "actorRole": "SUPER_ADMIN",
+      "action": "AUTH_LOGIN",
+      "resource": "USER",
+      "details": "Successful login: Amakari Super Admin (SUPER_ADMIN)",
+      "ip": "::1",
+      "timestamp": "2026-09-28T14:03:37.256Z"
+    },
+    {
+      "id": "id_1790605508569_47nh9y2",
+      "createdAt": "2026-09-28T14:25:08.569Z",
+      "updatedAt": "2026-09-28T14:25:08.569Z",
+      "actorId": "user_client_01",
+      "actorEmail": "client@amakari.com",
+      "actorRole": "USER",
+      "action": "AUTH_LOGIN",
+      "resource": "USER",
+      "details": "Successful login: Sarah Jenkins (USER)",
+      "ip": "::1",
+      "timestamp": "2026-09-28T14:25:08.569Z"
+    },
+    {
+      "id": "id_1790605572213_s1yi0v9",
+      "createdAt": "2026-09-28T14:26:12.213Z",
+      "updatedAt": "2026-09-28T14:26:12.213Z",
+      "actorId": "user_client_01",
+      "actorEmail": "client@amakari.com",
+      "actorRole": "USER",
+      "action": "SESSION_LEFT",
+      "resource": "SESSION",
+      "details": "Participant Sarah Jenkins left session session_01",
+      "ip": "::1",
+      "timestamp": "2026-09-28T14:26:12.213Z"
+    },
+    {
+      "id": "id_1790605572231_ufkg83v",
+      "createdAt": "2026-09-28T14:26:12.231Z",
+      "updatedAt": "2026-09-28T14:26:12.231Z",
+      "actorId": "user_client_01",
+      "actorEmail": "client@amakari.com",
+      "actorRole": "USER",
+      "action": "SESSION_JOINED",
+      "resource": "SESSION",
+      "details": "Participant Sarah Jenkins joined session session_01 in room room_amakari_session_live_01",
+      "ip": "::1",
+      "timestamp": "2026-09-28T14:26:12.231Z"
+    },
+    {
+      "id": "id_1790605572259_g4cd6um",
+      "createdAt": "2026-09-28T14:26:12.259Z",
+      "updatedAt": "2026-09-28T14:26:12.259Z",
+      "actorId": "user_client_01",
+      "actorEmail": "client@amakari.com",
+      "actorRole": "USER",
+      "action": "SESSION_JOINED",
+      "resource": "SESSION",
+      "details": "Participant Sarah Jenkins joined session session_01 in room room_amakari_session_live_01",
+      "ip": "::1",
+      "timestamp": "2026-09-28T14:26:12.259Z"
+    },
+    {
+      "id": "id_1790605598279_mecfas1",
+      "createdAt": "2026-09-28T14:26:38.279Z",
+      "updatedAt": "2026-09-28T14:26:38.279Z",
+      "actorId": "user_client_01",
+      "actorEmail": "client@amakari.com",
+      "actorRole": "USER",
+      "action": "SESSION_LEFT",
+      "resource": "SESSION",
+      "details": "Participant Sarah Jenkins left session session_01",
+      "ip": "::1",
+      "timestamp": "2026-09-28T14:26:38.279Z"
+    },
+    {
+      "id": "id_1790605598798_fzdlyv7",
+      "createdAt": "2026-09-28T14:26:38.798Z",
+      "updatedAt": "2026-09-28T14:26:38.798Z",
+      "actorId": "user_client_01",
+      "actorEmail": "client@amakari.com",
+      "actorRole": "USER",
+      "action": "SESSION_LEFT",
+      "resource": "SESSION",
+      "details": "Participant Sarah Jenkins left session session_01",
+      "ip": "::1",
+      "timestamp": "2026-09-28T14:26:38.798Z"
+    },
+    {
+      "id": "id_1790606031851_uw4bnqa",
+      "createdAt": "2026-09-28T14:33:51.851Z",
+      "updatedAt": "2026-09-28T14:33:51.851Z",
+      "actorId": "user_client_01",
+      "actorEmail": "client@amakari.com",
+      "actorRole": "USER",
+      "action": "AUTH_LOGIN",
+      "resource": "USER",
+      "details": "Successful login: Sarah Jenkins (USER)",
+      "ip": "::1",
+      "timestamp": "2026-09-28T14:33:51.850Z"
+    },
+    {
+      "id": "id_1790606042822_di1ufkv",
+      "createdAt": "2026-09-28T14:34:02.822Z",
+      "updatedAt": "2026-09-28T14:34:02.822Z",
+      "actorId": "user_superadmin_01",
+      "actorEmail": "superadmin@amakari.com",
+      "actorRole": "SUPER_ADMIN",
+      "action": "AUTH_LOGIN",
+      "resource": "USER",
+      "details": "Successful login: Amakari Super Admin (SUPER_ADMIN)",
+      "ip": "::1",
+      "timestamp": "2026-09-28T14:34:02.822Z"
+    },
+    {
+      "id": "id_1790606106419_6jpwvhs",
+      "createdAt": "2026-09-28T14:35:06.419Z",
+      "updatedAt": "2026-09-28T14:35:06.419Z",
+      "actorId": "user_superadmin_01",
+      "actorEmail": "superadmin@amakari.com",
+      "actorRole": "SUPER_ADMIN",
+      "action": "AUTH_LOGIN",
+      "resource": "USER",
+      "details": "Successful login: Amakari Super Admin (SUPER_ADMIN)",
+      "ip": "::1",
+      "timestamp": "2026-09-28T14:35:06.419Z"
+    },
+    {
+      "id": "id_1790606133714_3nxlilj",
+      "createdAt": "2026-09-28T14:35:33.714Z",
+      "updatedAt": "2026-09-28T14:35:33.714Z",
+      "actorId": "user_superadmin_01",
+      "actorEmail": "superadmin@amakari.com",
+      "actorRole": "SUPER_ADMIN",
+      "action": "SUB_ADMIN_UPDATED",
+      "resource": "SUB_ADMIN",
+      "details": "Super Admin updated Sub Admin Restricted Sub Admin. Permissions: USER_VIEW",
+      "ip": "::1",
+      "timestamp": "2026-09-28T14:35:33.714Z"
+    },
+    {
+      "id": "id_1790606423856_4rq7fpj",
+      "createdAt": "2026-09-28T14:40:23.856Z",
+      "updatedAt": "2026-09-28T14:40:23.856Z",
+      "actorId": "user_client_01",
+      "actorEmail": "client@amakari.com",
+      "actorRole": "USER",
+      "action": "AUTH_LOGIN",
+      "resource": "USER",
+      "details": "Successful login: Sarah Jenkins (USER)",
+      "ip": "::1",
+      "timestamp": "2026-09-28T14:40:23.856Z"
+    }
+  ],
+  "settings": {
+    "platformName": "Amakari Psychotherapy",
+    "sessionDurationMinutes": 50,
+    "cancellationBufferHours": 24,
+    "videoProvider": "Native WebRTC Mesh / P2P with Secure Signaling",
+    "maintenanceMode": false,
+    "requireTherapistVerification": true,
+    "updatedAt": "2026-09-28T13:35:31.075Z"
+  },
+  "reports": []
+}
