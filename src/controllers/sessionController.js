@@ -35,7 +35,33 @@ export async function joinSession(req, res) {
       });
     }
 
-    // 4. Is the appointment valid?
+    // 4. Verify Therapist is Approved
+    const therapist = db.findById('therapists', session.therapistId);
+    if (!therapist || (therapist.status !== 'APPROVED' && therapist.status !== 'verified')) {
+      return res.status(400).json({
+        error: 'Bad Request',
+        message: 'Therapist is not currently approved to conduct clinical video sessions.'
+      });
+    }
+
+    // 5. Verify User has active package with sessions remaining
+    let userPackage = null;
+    if (session.userPackageId) {
+      userPackage = db.findById('userPackages', session.userPackageId);
+    } else {
+      userPackage = db.findOne('userPackages', (up) => up.userId === session.clientId && up.therapistId === session.therapistId && up.status === 'ACTIVE' && up.sessionsRemaining > 0);
+    }
+
+    if (isClient) {
+      if (!userPackage || userPackage.status !== 'ACTIVE' || userPackage.sessionsRemaining <= 0) {
+        return res.status(403).json({
+          error: 'Package Depleted',
+          message: 'No active therapy package with remaining sessions available. Please purchase or renew a therapy package to join the video session.'
+        });
+      }
+    }
+
+    // 6. Is the appointment valid?
     let appointment = null;
     if (session.appointmentId) {
       appointment = db.findById('appointments', session.appointmentId);
@@ -47,7 +73,7 @@ export async function joinSession(req, res) {
       }
     }
 
-    // 5. Is the session available?
+    // 7. Is the session available?
     if (session.status === 'CANCELLED') {
       return res.status(400).json({ error: 'Bad Request', message: 'This session has been cancelled.' });
     }
@@ -55,7 +81,7 @@ export async function joinSession(req, res) {
       return res.status(400).json({ error: 'Bad Request', message: 'This psychotherapy session has already concluded.' });
     }
 
-    // 6. Update session status to ACTIVE if it was SCHEDULED
+    // 8. Update session status to ACTIVE if it was SCHEDULED
     const now = new Date().toISOString();
     let updatedSession = session;
     if (session.status === 'SCHEDULED') {
@@ -154,6 +180,28 @@ export async function endSession(req, res) {
 
     if (session.appointmentId) {
       await db.update('appointments', session.appointmentId, { status: 'COMPLETED' });
+    }
+
+    // Update package sessions: decrement remaining, increment used
+    let userPackage = null;
+    if (session.userPackageId) {
+      userPackage = db.findById('userPackages', session.userPackageId);
+    } else {
+      userPackage = db.findOne(
+        'userPackages',
+        (up) => up.userId === session.clientId && up.therapistId === session.therapistId && up.sessionsRemaining > 0
+      );
+    }
+
+    if (userPackage && userPackage.sessionsRemaining > 0) {
+      const newRemaining = Math.max(0, userPackage.sessionsRemaining - 1);
+      const newUsed = (userPackage.sessionsUsed || 0) + 1;
+      const newStatus = newRemaining <= 0 ? 'DEPLETED' : 'ACTIVE';
+      await db.update('userPackages', userPackage.id, {
+        sessionsRemaining: newRemaining,
+        sessionsUsed: newUsed,
+        status: newStatus
+      });
     }
 
     await logAudit(

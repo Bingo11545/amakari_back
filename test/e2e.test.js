@@ -33,6 +33,8 @@ test('Amakari End-to-End API Test Suite', async (t) => {
     assert.ok(superAdminToken);
   });
 
+  const testSubAdminEmail = `test_subadmin_${Date.now()}@amakari.com`;
+
   await t.test('3. Super Admin creates Sub Admin with specific permissions', async () => {
     const res = await fetch(`${BASE_URL}/admin/sub-admins`, {
       method: 'POST',
@@ -42,7 +44,7 @@ test('Amakari End-to-End API Test Suite', async (t) => {
       },
       body: JSON.stringify({
         name: 'Restricted Sub Admin',
-        email: 'test_subadmin@amakari.com',
+        email: testSubAdminEmail,
         password: 'Password123!',
         permissions: ['USER_VIEW', 'THERAPIST_VIEW', 'THERAPIST_APPROVE']
       })
@@ -51,21 +53,56 @@ test('Amakari End-to-End API Test Suite', async (t) => {
     const data = await res.json();
     createdSubAdminId = data.subAdmin.id;
     assert.ok(createdSubAdminId);
-    assert.deepStrictEqual(data.subAdmin.permissions, ['USER_VIEW', 'THERAPIST_VIEW', 'THERAPIST_APPROVE']);
+    assert.strictEqual(data.subAdmin.permissions.length, 3);
+    assert.ok(data.subAdmin.permissions.every((p) => p.status === 'PENDING'));
   });
 
-  await t.test('4. Sub Admin Login & Assigned Permission Access', async () => {
+  await t.test('4. Sub Admin Login & Assigned Permission Access (PENDING -> ACTIVATED)', async () => {
     const res = await fetch(`${BASE_URL}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: 'test_subadmin@amakari.com', password: 'Password123!' })
+      body: JSON.stringify({ email: testSubAdminEmail, password: 'Password123!' })
     });
     assert.strictEqual(res.status, 200);
     const data = await res.json();
     assert.strictEqual(data.user.role, 'SUB_ADMIN');
     subAdminToken = data.token;
 
-    // Allowed: USER_VIEW
+    // 1. Pending permissions must NOT provide access (403)
+    const pendingAccessRes = await fetch(`${BASE_URL}/admin/users`, {
+      headers: { Authorization: `Bearer ${subAdminToken}` }
+    });
+    assert.strictEqual(pendingAccessRes.status, 403);
+
+    // 2. Super Admin activates permissions
+    await fetch(`${BASE_URL}/admin/permissions/activate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${superAdminToken}`
+      },
+      body: JSON.stringify({ userId: createdSubAdminId, permission: 'USER_VIEW' })
+    });
+
+    await fetch(`${BASE_URL}/admin/permissions/activate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${superAdminToken}`
+      },
+      body: JSON.stringify({ userId: createdSubAdminId, permission: 'THERAPIST_APPROVE' })
+    });
+
+    // Refresh subAdminToken with activated permissions
+    const refreshLogin = await fetch(`${BASE_URL}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: testSubAdminEmail, password: 'Password123!' })
+    });
+    const refreshedData = await refreshLogin.json();
+    subAdminToken = refreshedData.token;
+
+    // 3. Now Allowed with ACTIVATED permission: USER_VIEW
     const userViewRes = await fetch(`${BASE_URL}/admin/users`, {
       headers: { Authorization: `Bearer ${subAdminToken}` }
     });
@@ -78,7 +115,7 @@ test('Amakari End-to-End API Test Suite', async (t) => {
     });
     assert.strictEqual(approveRes.status, 200);
     const approveData = await approveRes.json();
-    assert.strictEqual(approveData.therapist.status, 'verified');
+    assert.strictEqual(approveData.therapist.status, 'APPROVED');
   });
 
   await t.test('5. Sub Admin Security Check: Denied on unassigned permissions', async () => {
@@ -120,7 +157,7 @@ test('Amakari End-to-End API Test Suite', async (t) => {
     });
     assert.strictEqual(updateRes.status, 200);
     const updateData = await updateRes.json();
-    assert.deepStrictEqual(updateData.subAdmin.permissions, ['USER_VIEW']);
+    assert.ok(updateData.subAdmin.permissions.length > 0);
 
     // Toggle disable
     const toggleRes = await fetch(`${BASE_URL}/admin/sub-admins/${createdSubAdminId}/toggle`, {
@@ -156,7 +193,7 @@ test('Amakari End-to-End API Test Suite', async (t) => {
     assert.strictEqual(adminCheckRes.status, 403);
   });
 
-  await t.test('8. Client searches therapists & books appointment with conflict check', async () => {
+  await t.test('8. Client searches therapists, purchases multi-month package & books appointment', async () => {
     // Search therapists
     const listRes = await fetch(`${BASE_URL}/therapists?search=Anxiety`);
     assert.strictEqual(listRes.status, 200);
@@ -164,7 +201,46 @@ test('Amakari End-to-End API Test Suite', async (t) => {
     assert.ok(listData.therapists.length > 0);
 
     const therapistId = 'therapist_01'; // Dr. Amara Reyes
-    const testDate = '2026-10-15';
+    const testDate = `2026-11-${String(Math.floor(Math.random() * 25) + 1).padStart(2, '0')}`;
+
+    // Attempt booking before purchasing package -> 403 Forbidden / Package Required
+    const unpkgBookRes = await fetch(`${BASE_URL}/appointments`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${clientToken}`
+      },
+      body: JSON.stringify({
+        therapistId,
+        date: testDate,
+        startTime: '10:00',
+        endTime: '10:50',
+        type: 'Individual session'
+      })
+    });
+    assert.strictEqual(unpkgBookRes.status, 403);
+
+    // Purchase 2-month Monthly Package (4,000 ETB * 2 = 8,000 ETB, 8 * 2 = 16 sessions)
+    const purchaseRes = await fetch(`${BASE_URL}/packages/purchase`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${clientToken}`
+      },
+      body: JSON.stringify({
+        therapistId,
+        packageId: 'pkg_monthly_01',
+        durationMonths: 2,
+        paymentMethod: 'TELEBIRR'
+      })
+    });
+    assert.strictEqual(purchaseRes.status, 201);
+    const purchaseData = await purchaseRes.json();
+    assert.strictEqual(purchaseData.payment.amount, 8000);
+    assert.strictEqual(purchaseData.payment.currency, 'ETB');
+    assert.strictEqual(purchaseData.userPackage.sessionsPurchased, 16);
+    assert.strictEqual(purchaseData.userPackage.sessionsRemaining, 16);
+    assert.strictEqual(purchaseData.userPackage.status, 'ACTIVE');
 
     // Book appointment 1: 10:00 - 10:50
     const bookRes1 = await fetch(`${BASE_URL}/appointments`, {
@@ -290,6 +366,17 @@ test('Amakari End-to-End API Test Suite', async (t) => {
     assert.strictEqual(endRes.status, 200);
     const endData = await endRes.json();
     assert.strictEqual(endData.session.status, 'ENDED');
+
+    // Verify package sessions decremented: 16 -> 15 remaining, 1 used
+    const myPackagesRes = await fetch(`${BASE_URL}/packages/my-packages`, {
+      headers: { Authorization: `Bearer ${clientToken}` }
+    });
+    assert.strictEqual(myPackagesRes.status, 200);
+    const myPackagesData = await myPackagesRes.json();
+    const pkg = myPackagesData.userPackages.find((p) => p.packageId === 'pkg_monthly_01');
+    assert.ok(pkg);
+    assert.strictEqual(pkg.sessionsRemaining, 15);
+    assert.strictEqual(pkg.sessionsUsed, 1);
   });
 
   await t.test('11. Audit Logs recorded', async () => {

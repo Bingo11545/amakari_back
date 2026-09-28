@@ -7,6 +7,7 @@ import { seedDatabase } from './database/seed.js';
 import adminRoutes from './routes/adminRoutes.js';
 import appointmentRoutes from './routes/appointmentRoutes.js';
 import authRoutes from './routes/authRoutes.js';
+import packageRoutes from './routes/packageRoutes.js';
 import sessionRoutes from './routes/sessionRoutes.js';
 import therapistRoutes from './routes/therapistRoutes.js';
 import { setupSignaling } from './services/signalingService.js';
@@ -43,6 +44,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/therapists', therapistRoutes);
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/sessions', sessionRoutes);
+app.use('/api/packages', packageRoutes);
 app.use('/api/admin', adminRoutes);
 
 // Health check

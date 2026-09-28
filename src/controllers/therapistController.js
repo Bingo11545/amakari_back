@@ -6,10 +6,10 @@ export async function getAllTherapists(req, res) {
     const { search, specialty, status } = req.query;
     let list = db.find('therapists');
 
-    // If caller is not an Admin, only return verified therapists
+    // If caller is not an Admin, only return approved therapists
     const isAdmin = req.user && (req.user.role === 'SUPER_ADMIN' || req.user.role === 'SUB_ADMIN');
     if (!isAdmin) {
-      list = list.filter((t) => t.status === 'verified');
+      list = list.filter((t) => t.status === 'APPROVED' || t.status === 'verified');
     } else if (status) {
       list = list.filter((t) => t.status === status);
     }
@@ -50,7 +50,7 @@ export async function getTherapistById(req, res) {
     const isAdmin = req.user && (req.user.role === 'SUPER_ADMIN' || req.user.role === 'SUB_ADMIN');
     const isOwner = req.user && req.user.id === therapist.userId;
 
-    if (!isAdmin && !isOwner && therapist.status !== 'verified') {
+    if (!isAdmin && !isOwner && therapist.status !== 'APPROVED' && therapist.status !== 'verified') {
       return res.status(404).json({ error: 'Not Found', message: 'Therapist profile is not currently public.' });
     }
 

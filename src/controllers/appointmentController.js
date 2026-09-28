@@ -18,11 +18,31 @@ export async function createAppointment(req, res) {
       return res.status(404).json({ error: 'Not Found', message: 'Therapist not found.' });
     }
 
-    if (therapist.status !== 'verified') {
+    if (therapist.status !== 'APPROVED' && therapist.status !== 'verified') {
       return res.status(400).json({
         error: 'Bad Request',
-        message: 'This therapist is not currently verified to accept bookings.'
+        message: 'This therapist is not currently approved to accept bookings.'
       });
+    }
+
+    // Enforce active package with remaining sessions for USER role
+    let userPackage = null;
+    if (req.user.role === 'USER') {
+      userPackage = db.findOne(
+        'userPackages',
+        (up) =>
+          up.userId === clientId &&
+          up.therapistId === therapist.id &&
+          up.status === 'ACTIVE' &&
+          up.sessionsRemaining > 0
+      );
+
+      if (!userPackage) {
+        return res.status(403).json({
+          error: 'Package Required',
+          message: 'An active therapy package with remaining sessions is required to book an appointment with this therapist. Please select and purchase a package first.'
+        });
+      }
     }
 
     // Default 50 minute session duration if endTime not provided
@@ -59,6 +79,7 @@ export async function createAppointment(req, res) {
     const roomId = `amakari_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
     const session = await db.insert('sessions', {
       appointmentId: null, // linked right below
+      userPackageId: userPackage ? userPackage.id : null,
       clientId,
       therapistId: therapist.id,
       therapistUserId: therapist.userId,
@@ -76,6 +97,7 @@ export async function createAppointment(req, res) {
       therapistId: therapist.id,
       therapistUserId: therapist.userId,
       therapistName: therapist.name,
+      userPackageId: userPackage ? userPackage.id : null,
       date,
       startTime,
       endTime: calculatedEndTime,

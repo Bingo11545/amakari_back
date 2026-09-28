@@ -13,9 +13,14 @@ class Database {
       users: [],
       therapists: [],
       subAdmins: [],
+      subAdminPermissions: [],
+      therapyPackages: [],
+      userPackages: [],
       appointments: [],
       sessions: [],
+      payments: [],
       auditLogs: [],
+      notifications: [],
       settings: {},
       reports: []
     };
@@ -33,7 +38,17 @@ class Database {
       if (fs.existsSync(DB_FILE)) {
         const raw = fs.readFileSync(DB_FILE, 'utf-8');
         if (raw.trim()) {
-          this.data = JSON.parse(raw);
+          const parsed = JSON.parse(raw);
+          this.data = {
+            ...this.data,
+            ...parsed
+          };
+          // Ensure all collections exist
+          for (const key of Object.keys(this.data)) {
+            if (!this.data[key]) {
+              this.data[key] = Array.isArray(this.data[key]) ? [] : {};
+            }
+          }
         }
       } else {
         await this.persist();
@@ -53,7 +68,12 @@ class Database {
         }
         const tempFile = `${DB_FILE}.tmp.${Date.now()}`;
         await fs.promises.writeFile(tempFile, JSON.stringify(this.data, null, 2), 'utf-8');
-        await fs.promises.rename(tempFile, DB_FILE);
+        try {
+          await fs.promises.rename(tempFile, DB_FILE);
+        } catch {
+          await fs.promises.copyFile(tempFile, DB_FILE);
+          await fs.promises.unlink(tempFile).catch(() => {});
+        }
       } catch (err) {
         console.error('Error persisting database:', err);
       }
